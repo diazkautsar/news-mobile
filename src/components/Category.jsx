@@ -4,17 +4,28 @@ import {
   Image,
   Text,
   StyleSheet,
+  TouchableWithoutFeedback
 } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 const Category = (props) => {
+  const navigation = useNavigation()
   const name = props.data.name
   const pict = props.data.pict
 
+  const goToNews = () => {
+    navigation.navigate('News', {
+      name
+    })
+  }
+
   return (
-    <View style={styles.container}>
-      <Image source={pict} style={{ width: '100%', height: 200 }}/>
-      <Text style={styles.text}>{name}</Text>
-    </View>
+    <TouchableWithoutFeedback onPress={goToNews}>
+      <View style={styles.container}>
+        <Image source={pict} style={{ width: '100%', height: 200 }}/>
+        <Text style={styles.text}>{name}</Text>
+      </View>
+    </TouchableWithoutFeedback>
   )
 }
 

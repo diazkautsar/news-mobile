@@ -7,27 +7,27 @@ import tech from './pictures/technology.jpg'
 
 const categories = [
   {
-    name: 'Business',
+    name: 'business',
     pict: business
   },
   {
-    name: 'Entertainment',
+    name: 'entertainment',
     pict: entertainment
   },
   {
-    name: 'Health',
+    name: 'health',
     pict: health
   },
   {
-    name: 'Science',
+    name: 'science',
     pict: science
   },
   {
-    name: 'Sports',
+    name: 'sports',
     pict: sports
   },
   {
-    name: 'Technology',
+    name: 'technology',
     pict: tech
   }
 ]

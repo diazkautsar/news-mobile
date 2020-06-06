@@ -1,5 +1,8 @@
-const instance = axios.create({
-  baseURL: 'http://newsapi.org/v2/',
-});
+import axios from 'axios'
 
-export default instance
+export const AxiosCategories = (category) => {
+  return axios({
+    method: 'get',
+    url: `http://newsapi.org/v2/top-headlines?country=id&category=${category}&apiKey=7f1f2262f71244508e69147fcb017eb4`,
+  });
+}

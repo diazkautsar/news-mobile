@@ -1,13 +1,9 @@
 import React from 'react';
 import {
   View,
-  Text,
-  Image,
   Dimensions,
   StyleSheet,
-  ImageBackground,
   FlatList,
-  ScrollView,
   Platform,
   StatusBar
 } from 'react-native';
