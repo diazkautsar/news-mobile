@@ -4,8 +4,6 @@ import {
   Dimensions,
   StyleSheet,
   FlatList,
-  Platform,
-  StatusBar
 } from 'react-native';
 import categories from '../assets/catergories'
 
@@ -31,7 +29,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: screenWidth,
     height: screenHeight,
-    marginTop: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight
   },
   imageBackgorund: {
     width: screenWidth,

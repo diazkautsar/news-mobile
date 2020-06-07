@@ -6,15 +6,25 @@ import {
   StyleSheet,
   Linking,
   TouchableWithoutFeedback,
-  Alert
+  Alert,
+  TouchableOpacity
 } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import { Foundation } from '@expo/vector-icons';
+import { Card, CardItem, Left, Body } from 'native-base'
 
 const CardNews = (props) => {
+  const navigation = useNavigation()
+
+  const goToDetails = () => {
+    navigation.navigate('Details', {
+      detail: props.data
+    })
+  }
+
 
   const OpenUrl = ({ url }) => {
     const handlePress = useCallback(async () => {
-      console.log(url)
       const supported = await Linking.canOpenURL(`https://${url}`)
       if (supported) {
         await Linking.openURL(`https://${url}`)
@@ -27,39 +37,45 @@ const CardNews = (props) => {
       <TouchableWithoutFeedback
         onPress={handlePress}
       >
-        <Foundation name="web" size={16} color="black">
-          <Text style={{ fontSize: 12 }}>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <Foundation name="web" size={16} color="black" />
+          <Text style={{ fontSize: 14, marginLeft: 5}}>
             {props.data.source.name}
           </Text>
-        </Foundation>
+        </View>
       </TouchableWithoutFeedback>
     )
   }
+  
   return (
     <View style={styles.container}>
-      <Image
-        style={{ width: '100%', height: 200, borderRadius: 5 }} 
-        source={{ uri: `${props.data.urlToImage}` }}
-      />
-      <View style={styles.title}>
-        <Text>{props.data.title}</Text>
-        <View style={styles.website}>
-          <OpenUrl url={`${props.data.source.name}`} />
-        </View>
-      </View>
+      <Card>
+        <TouchableOpacity onPress={goToDetails}>
+          <CardItem cardBody>
+            <Image
+              style={{ width: '100%', height: 200, borderRadius: 5 }} 
+              source={{ uri: `${props.data.urlToImage}` }}
+            />
+          </CardItem>
+          <CardItem>
+            <Body>
+              <Text>{props.data.title}</Text>
+            </Body>
+          </CardItem>
+        </TouchableOpacity>
+        <CardItem>
+          <Left>
+            <OpenUrl url={`${props.data.source.name}`} />
+          </Left>
+        </CardItem>
+      </Card>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10
-  },
-  title: {
-    // backgroundColor: 'red',
-  },
-  website: {
-    marginTop: 5
+    margin: 5
   }
 })
 

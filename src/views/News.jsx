@@ -12,7 +12,8 @@ import {
   reducer
 } from '../store'
 import {
-  AxiosCategories
+  AxiosCategories,
+  SearchNews
 } from '../axios/index'
 import Loading from '../components/Loading'
 import CardNews from '../components/CardNews'
@@ -23,21 +24,27 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 const News = ({ route }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const { name } = route.params
+  const { type } = route.params
 
   useEffect(() => {
     async function fetchData() {
       dispatch({ type: 'SET_LOADING', value: true })
       try {
-        const { data } = await AxiosCategories(name)
-        dispatch({ type: 'SET_NEWS', value: data.articles }) 
+        if (type === 'category') {
+          const { data } = await AxiosCategories(name)
+          dispatch({ type: 'SET_NEWS', value: data.articles }) 
+        } else {
+          const { data } = await SearchNews(name)
+          dispatch({ type: 'SET_NEWS', value: data.articles }) 
+        }
       } catch (error) {
         console.log(error)
       } finally {
         dispatch({ type: 'SET_LOADING', value: false })
       }
     }
-    fetchData();
-  }, [name])
+    fetchData()
+  }, [name, type])
 
   if (state.news.length === 0 || state.loading) return <Loading />
 

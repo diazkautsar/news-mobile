@@ -15,7 +15,8 @@ const Category = (props) => {
 
   const goToNews = () => {
     navigation.navigate('News', {
-      name
+      name,
+      type: 'category'
     })
   }
 
